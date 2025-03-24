@@ -4,7 +4,6 @@ from time import sleep as delay
 from os import system
 import csv
 import random
-import http.client
 
 WHITE = (255, 255, 255)
 BLUE = (0, 0, 255)
