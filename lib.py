@@ -4,6 +4,7 @@ from time import sleep as delay
 from os import system
 import csv
 import random
+import http.client
 
 WHITE = (255, 255, 255)
 BLUE = (0, 0, 255)
@@ -25,8 +26,9 @@ chance_dict = {}
 opened_box_link = "img/open.png"
 closed_box_link = "img/closed.png"
 
-logging = True
-# logging = False
+# logging = True
+logging = False
+
 def log(*args):
     if logging:
         print(*args)

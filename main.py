@@ -18,6 +18,7 @@ for blindbox_gift in blindbox_gifts:
     item_dict[blindbox_gift[0].strip()] = int(blindbox_gift[1])
 log(item_dict)
 
+# fullscreen_mode = False
 fullscreen_mode = True
 window.init()
 if fullscreen_mode:
@@ -113,19 +114,16 @@ while running:
         header_rect = header_surface.get_rect(center=(WIDTH / 2, (HEIGHT - data_displayed_height) / 2 + line_spacing))
         screen.blit(header_surface, header_rect)
 
-        # Draw table rows for item data
         table_start_y = (HEIGHT - data_displayed_height) / 2 + 2 * line_spacing
         row_height = 40
         col1_x = (WIDTH - data_displayed_width) / 2 + left_margin
         col2_x = (WIDTH + data_displayed_width) / 2 - left_margin - 200
         col3_x = (WIDTH + data_displayed_width) / 2 - left_margin
 
-        # Display box quantity as the first row
         box_count_surface = font.render(f"Còn tổng cộng {box_quantity} hộp mù", True, BLACK)
         box_count_rect = box_count_surface.get_rect(topleft=(col1_x, table_start_y))
         screen.blit(box_count_surface, box_count_rect)
 
-        # Display item data in subsequent rows
         for i, key in enumerate(item_dict):
             item_name_surface = font.render(key, True, BLACK)
             item_name_rect = item_name_surface.get_rect(topleft=(col1_x, table_start_y + (i + 1) * row_height))
@@ -134,7 +132,6 @@ while running:
             item_count_surface = font.render(str(item_dict[key]), True, BLACK)
             item_count_rect = item_count_surface.get_rect(topright=(col2_x, table_start_y + (i + 1) * row_height))
             screen.blit(item_count_surface, item_count_rect)
-            #display chance on col3
             chance_surface = font.render(f"{chance_dict[key]*100:.2f}%", True, BLACK)
             chance_rect = chance_surface.get_rect(topright=(col3_x, table_start_y + (i + 1) * row_height))
             screen.blit(chance_surface, chance_rect)
@@ -163,4 +160,5 @@ while running:
         if event.type == window.KEYDOWN and event.key == window.K_q and (event.mod & window.KMOD_CTRL) and (event.mod & window.KMOD_SHIFT):
             running = False
     window.display.flip()
+    delay(0.01)
 window.quit()
