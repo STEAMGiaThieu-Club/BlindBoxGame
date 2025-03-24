@@ -10,6 +10,14 @@ vertical_num = int(csv_list[0][1])
 blindbox_gifts = csv_list[1:]
 csv_file.close()
 
+fig_csv_file = open("fig.csv", "r", encoding="utf-8")
+fig_csv_reader = csv.reader(fig_csv_file)
+fig_csv_list = list(fig_csv_reader)
+fig_csv_file.close()
+
+fig_width = 200
+fig_height = 200
+
 blindbox_list = []
 box_list = []
 for blindbox_gift in blindbox_gifts:
@@ -33,6 +41,18 @@ opened_image = window.image.load(opened_box_link).convert_alpha()
 opened_image = window.transform.scale(opened_image, (box_width, box_height))
 closed_image = window.image.load(closed_box_link).convert_alpha()
 closed_image = window.transform.scale(closed_image, (box_width, box_height))
+
+fig_link = "img/fig/"
+class Fig:
+    def __init__(self, x, name, image, price):
+        self.x = x
+        self.y = y
+        self.name = name
+        self.image = window.image.load(fig_link + image).convert_alpha()
+        self.image = window.transform.scale(self.image, (fig_width, fig_height))
+        self.price = price
+    def draw(self, screen):
+        screen.blit(self.image, (self.x, self.y))
 
 class Box:
     def __init__(self, x, y, opened=False, blindbox=None):
@@ -68,7 +88,11 @@ for z in range(vertical_num):
             blindbox = blindbox_list.pop(random.randint(0, len(blindbox_list) - 1))
             box_list.append(Box((i+1) * horizontal_range, (z+1) * vertical_range, False, blindbox))
             box_quantity += 1
-            
+
+fig_list = []
+for i in len(fig_csv_list):
+    fig = Fig(i, fig_csv_list[i][0], fig_csv_list[i][1], fig_csv_list[i][2])
+    fig_list.append(fig)
 
 for box in box_list:
     # print(box.x, box.y, box.opened, box.blindbox.image, box.blindbox.name)
